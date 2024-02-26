@@ -91,3 +91,15 @@ class QLearner(TemporalDifferenceLearningAgent):
             TD_target += self.gamma*Q_next
         TD_error = TD_target - Q_old
         self.Q(state)[action] += self.alpha*TD_error
+
+class UCBQLearner(QLearner):
+    def __init__(self, params):
+        super(UCBQLearner, self).__init__(params)
+        self.exploration_constant = params["exploration_constant"]
+        self.action_counts = np.array([0]*self.nr_actions)
+        
+    def policy(self, state):
+        Q_values = self.Q(state)
+        action = UCB1(Q_values, self.action_counts, exploration_constant=self.exploration_constant)
+        self.action_counts[action] += 1
+        return action
