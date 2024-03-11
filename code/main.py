@@ -20,7 +20,7 @@ def episode(env, agent, discount_factor = 0.99, nr_episode=0, evaluation_mode=Fa
     time_step = 0
     if evaluation_mode:
         agent.epsilon = 0
-        # agent.exploration_constant = 0 # no exploration
+        agent.exploration_constant = 0
     while not done:
         # 1. Select action according to policy
         action = agent.policy(state)
@@ -52,19 +52,20 @@ np.random.seed(42)
 #agent = a.RandomAgent(params)
 #agent = a.SARSALearner(params)
 agent = a.QLearner(params)
-# agent = load_agent("saved_agents/agent: 2024-03-11 13:06:17.pkl")
+agent = load_agent("saved_agents/agent: 2024-03-11 13:06:17.pkl")
 training_episodes = 200
 evaluation_episodes = 10
-returns = [episode(env, agent, i, verbose=False) for i in range(training_episodes)]
+
+# TRAINING
+# returns = [episode(env, agent, i, verbose=False) for i in range(training_episodes)]
+# x = range(training_episodes)
+# y = returns
+# plot_returns(x,y)
+
+# EVALUATION
 eval_returns = [episode(env, agent, i, verbose=False, evaluation_mode=True) for i in range(evaluation_episodes)]
-
-x = range(training_episodes)
-y = returns
-
 x_eval = range(evaluation_episodes)
 y_eval = eval_returns
-
-plot_returns(x,y)
 plot_returns(x_eval,y_eval)
 
 print(f"Evaluation discounted reward: {np.mean(eval_returns)}")
