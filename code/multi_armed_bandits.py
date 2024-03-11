@@ -2,7 +2,6 @@ import random
 import numpy as np
 import math
 
-
 def random_bandit(Q_values, action_counts):
     return np.random.choice(range(len(Q_values)))
     
