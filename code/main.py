@@ -3,6 +3,7 @@ import agent as a
 import matplotlib.pyplot as plot
 import sys
 from utils import save_agent, load_agent
+import numpy as np
 
 def episode(env, agent, discount_factor = 0.99, nr_episode=0):
     state = env.reset()
@@ -22,7 +23,8 @@ def episode(env, agent, discount_factor = 0.99, nr_episode=0):
         time_step += 1
     print(nr_episode, ":", discounted_return)
     return discounted_return
-    
+
+
 params = {}
 rooms_instance = sys.argv[1]
 env = rooms.load_env(f"layouts/{rooms_instance}.txt", f"{rooms_instance}.mp4")
@@ -32,9 +34,12 @@ params["epsilon_decay"] = 0.001
 params["alpha"] = 0.1
 params["env"] = env
 
+np.random.seed(42)
+
 #agent = a.RandomAgent(params)
 #agent = a.SARSALearner(params)
 agent = a.QLearner(params)
+# agent = load_agent("saved_agents/agent: 2024-03-11 13:06:17.pkl")
 training_episodes = 200
 returns = [episode(env, agent, i) for i in range(training_episodes)]
 

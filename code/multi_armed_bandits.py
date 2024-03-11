@@ -2,12 +2,13 @@ import random
 import numpy as np
 import math
 
+
 def random_bandit(Q_values, action_counts):
-    return random.choice(range(len(Q_values)))
+    return np.random.choice(range(len(Q_values)))
     
 def epsilon_greedy(Q_values, action_counts, epsilon=0.1):
     if np.random.rand() <= epsilon:
-        return random.choice(range(len(Q_values)))
+        return np.random.choice(range(len(Q_values)))
     else:
         return np.argmax(Q_values)
         
