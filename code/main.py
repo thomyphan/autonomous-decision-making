@@ -33,6 +33,7 @@ params["gamma"] = 0.99
 params["epsilon_decay"] = 0.001
 params["alpha"] = 0.1
 params["env"] = env
+params["epsilon"] = 1
 
 np.random.seed(42)
 

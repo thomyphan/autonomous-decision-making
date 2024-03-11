@@ -5,6 +5,8 @@ from multi_armed_bandits import *
 """
  Base class of an autonomously acting and learning agent.
 """
+
+np.random.seed(42)
 class Agent:
 
     def __init__(self, params):
@@ -50,7 +52,7 @@ class TemporalDifferenceLearningAgent(Agent):
         self.Q_values = {}
         self.alpha = params["alpha"]
         self.epsilon_decay = params["epsilon_decay"]
-        self.epsilon = 1.0
+        self.epsilon = params["epsilon"]
         
     def Q(self, state):
         state = np.array2string(state)
