@@ -5,8 +5,8 @@ from gymnasium import spaces
 from gymnasium.utils import seeding
 import matplotlib.pyplot as plot
 import random
-from moviepy.editor import VideoClip
-from moviepy.video.io.bindings import mplfig_to_npimage
+# from moviepy.editor import VideoClip
+# from moviepy.video.io.bindings import mplfig_to_npimage
 
 MOVE_NORTH = 0
 MOVE_SOUTH = 1
@@ -115,19 +115,19 @@ class RoomsEnv(gym.Env):
             "score": self.undiscounted_return
         }
         
-    def save_video(self):
-        if self.movie_filename is not None:
-            history_of_states = self.state_history
-            duration = len(history_of_states)
-            fig, ax = plot.subplots()
-            def make_frame(t):
-                ax.clear()
-                ax.grid(False)
-                ax.imshow(numpy.swapaxes(history_of_states[int(t)], 0, 2))
-                ax.tick_params(axis='both', which='both', bottom=False, top=False, left=False, right=False, labelleft=False, labelbottom=False)
-                return mplfig_to_npimage(fig)
-            animation = VideoClip(make_frame, duration=duration)
-            animation.write_videofile(self.movie_filename, fps=1)
+    # def save_video(self):
+    #     if self.movie_filename is not None:
+    #         history_of_states = self.state_history
+    #         duration = len(history_of_states)
+    #         fig, ax = plot.subplots()
+    #         def make_frame(t):
+    #             ax.clear()
+    #             ax.grid(False)
+    #             ax.imshow(numpy.swapaxes(history_of_states[int(t)], 0, 2))
+    #             ax.tick_params(axis='both', which='both', bottom=False, top=False, left=False, right=False, labelleft=False, labelbottom=False)
+    #             return mplfig_to_npimage(fig)
+    #         animation = VideoClip(make_frame, duration=duration)
+    #         animation.write_videofile(self.movie_filename, fps=1)
         
 def read_map_file(path):
     file = pathlib.Path(path)

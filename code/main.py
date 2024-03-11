@@ -2,11 +2,11 @@ import rooms
 import agent as a
 import matplotlib.pyplot as plot
 import sys
+from utils import save_agent, load_agent
 
-def episode(env, agent, nr_episode=0):
+def episode(env, agent, discount_factor = 0.99, nr_episode=0):
     state = env.reset()
     discounted_return = 0
-    discount_factor = 0.99
     done = False
     time_step = 0
     while not done:
@@ -47,4 +47,4 @@ plot.xlabel("Episode")
 plot.ylabel("Discounted Return")
 plot.show()
 
-env.save_video()
+# env.save_video()
