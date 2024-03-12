@@ -6,7 +6,7 @@ from multi_armed_bandits import *
  Base class of an autonomously acting and learning agent.
 """
 
-np.random.seed(42)
+random.seed(42)
 class Agent:
 
     def __init__(self, params):

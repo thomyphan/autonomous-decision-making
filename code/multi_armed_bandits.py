@@ -3,17 +3,17 @@ import numpy as np
 import math
 
 def random_bandit(Q_values, action_counts):
-    return np.random.choice(range(len(Q_values)))
+    return random.choice(range(len(Q_values)))
     
 def epsilon_greedy(Q_values, action_counts, epsilon=0.1):
     if np.random.rand() <= epsilon:
-        return np.random.choice(range(len(Q_values)))
+        return random.choice(range(len(Q_values)))
     else:
         return np.argmax(Q_values)
         
 def boltzmann(Q_values, action_counts, temperature=1.0):
     E = np.exp(Q_values/temperature)
-    return np.random.choice(range(len(Q_values)), p=E/sum(E))
+    return random.choice(range(len(Q_values)), p=E/sum(E))
         
 def UCB1(Q_values, action_counts, exploration_constant=1):
     UCB1_values = []

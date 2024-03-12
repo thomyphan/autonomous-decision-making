@@ -1,4 +1,5 @@
 import rooms
+import random
 import agent as a
 import matplotlib.pyplot as plot
 import sys
@@ -48,6 +49,7 @@ params["env"] = env
 params["epsilon"] = 1
 
 np.random.seed(42)
+random.seed(42)
 
 #agent = a.RandomAgent(params)
 #agent = a.SARSALearner(params)
