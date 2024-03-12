@@ -42,19 +42,19 @@ params = {}
 rooms_instance = sys.argv[1]
 env = rooms.load_env(f"layouts/{rooms_instance}.txt", f"{rooms_instance}.mp4")
 params["nr_actions"] = env.action_space.n
-params["gamma"] = 0.99
+params["gamma"] = 0.95
 params["epsilon_decay"] = 0.0001
 params["alpha"] = 0.1
 params["env"] = env
-params["exploration_constant"] = 10
-params["epsilon"] = .4
+params["exploration_constant"] = 5
+params["epsilon"] = 1
 
 np.random.seed(42)
 random.seed(42)
 
 #agent = a.RandomAgent(params)
-#agent = a.SARSALearner(params)
-agent = a.QLearner(params)
+agent = a.SARSALearner(params)
+# agent = a.QLearner(params)
 
 # agent = load_agent("saved_agents/agent: 2024-03-11 19:10:22.pkl") # Load agent from file
 training_episodes = 1000

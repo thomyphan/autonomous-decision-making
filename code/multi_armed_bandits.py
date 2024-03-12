@@ -13,7 +13,7 @@ def epsilon_greedy(Q_values, action_counts, epsilon=0.1):
         
 def boltzmann(Q_values, action_counts, temperature=1.0):
     E = np.exp(Q_values/temperature)
-    return random.choice(range(len(Q_values)), p=E/sum(E))
+    return np.random.choice(range(len(Q_values)), p=E/sum(E))
         
 def UCB1(Q_values, action_counts, exploration_constant=1):
     UCB1_values = []
