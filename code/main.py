@@ -52,8 +52,9 @@ np.random.seed(42)
 #agent = a.RandomAgent(params)
 #agent = a.SARSALearner(params)
 agent = a.QLearner(params)
-agent = load_agent("saved_agents/agent: 2024-03-11 13:06:17.pkl")
-training_episodes = 200
+save_agent(agent)
+# agent = load_agent("saved_agents/agent: 2024-03-11 19:10:22.pkl") # Load agent from file
+training_episodes = 2000
 evaluation_episodes = 10
 
 # TRAINING
