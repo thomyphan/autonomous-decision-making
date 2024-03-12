@@ -21,7 +21,7 @@ def episode(env, agent, discount_factor = 0.99, nr_episode=0, evaluation_mode=Fa
     time_step = 0
     if evaluation_mode:
         agent.epsilon = 0
-        agent.exploration_constant = 0
+        # agent.exploration_constant = 1
     while not done:
         # 1. Select action according to policy
         action = agent.policy(state)
@@ -43,10 +43,11 @@ rooms_instance = sys.argv[1]
 env = rooms.load_env(f"layouts/{rooms_instance}.txt", f"{rooms_instance}.mp4")
 params["nr_actions"] = env.action_space.n
 params["gamma"] = 0.99
-params["epsilon_decay"] = 0.001
+params["epsilon_decay"] = 0.0001
 params["alpha"] = 0.1
 params["env"] = env
-params["epsilon"] = 1
+params["exploration_constant"] = 10
+params["epsilon"] = .4
 
 np.random.seed(42)
 random.seed(42)
@@ -54,23 +55,24 @@ random.seed(42)
 #agent = a.RandomAgent(params)
 #agent = a.SARSALearner(params)
 agent = a.QLearner(params)
-save_agent(agent)
+
 # agent = load_agent("saved_agents/agent: 2024-03-11 19:10:22.pkl") # Load agent from file
-training_episodes = 2000
+training_episodes = 1000
 evaluation_episodes = 10
 
 # TRAINING
-# returns = [episode(env, agent, i, verbose=False) for i in range(training_episodes)]
-# x = range(training_episodes)
-# y = returns
+returns = [episode(env, agent, i, verbose=False) for i in range(training_episodes)]
+x = range(training_episodes)
+y = returns
 # plot_returns(x,y)
 
 # EVALUATION
 eval_returns = [episode(env, agent, i, verbose=False, evaluation_mode=True) for i in range(evaluation_episodes)]
 x_eval = range(evaluation_episodes)
 y_eval = eval_returns
-plot_returns(x_eval,y_eval)
+# plot_returns(x_eval,y_eval)
 
 print(f"Evaluation discounted reward: {np.mean(eval_returns)}")
+# save_agent(agent)
 
 # env.save_video()
