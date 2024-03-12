@@ -17,6 +17,7 @@ def plot_returns(x,y):
 def episode(env, agent, discount_factor = 0.99, nr_episode=0, evaluation_mode=False, verbose=True):
     state = env.reset()
     discounted_return = 0
+    discount_factor = 0.99
     done = False
     time_step = 0
     if evaluation_mode:
@@ -42,7 +43,7 @@ params = {}
 rooms_instance = sys.argv[1]
 env = rooms.load_env(f"layouts/{rooms_instance}.txt", f"{rooms_instance}.mp4")
 params["nr_actions"] = env.action_space.n
-params["gamma"] = 0.95
+params["gamma"] = 0.99
 params["epsilon_decay"] = 0.0001
 params["alpha"] = 0.1
 params["env"] = env
@@ -57,7 +58,7 @@ agent = a.SARSALearner(params)
 # agent = a.QLearner(params)
 
 # agent = load_agent("saved_agents/agent: 2024-03-11 19:10:22.pkl") # Load agent from file
-training_episodes = 1000
+training_episodes = 2000
 evaluation_episodes = 10
 
 # TRAINING
@@ -67,7 +68,7 @@ y = returns
 # plot_returns(x,y)
 
 # EVALUATION
-eval_returns = [episode(env, agent, i, verbose=False, evaluation_mode=True) for i in range(evaluation_episodes)]
+eval_returns = [episode(env, agent, i, verbose=True, evaluation_mode=True) for i in range(evaluation_episodes)]
 x_eval = range(evaluation_episodes)
 y_eval = eval_returns
 # plot_returns(x_eval,y_eval)
