@@ -35,7 +35,7 @@ def episode(env, agent, discount_factor = 0.99, nr_episode=0, evaluation_mode=Fa
         done = terminated or truncated
         discounted_return += (discount_factor**time_step)*reward
         time_step += 1
-    if verbose: print(nr_episode, ":", discounted_return)
+    if verbose: print(nr_episode, ":", discounted_return, "steps: ", time_step)
     return discounted_return
 
 
@@ -54,8 +54,8 @@ np.random.seed(42)
 random.seed(42)
 
 #agent = a.RandomAgent(params)
-agent = a.SARSALearner(params)
-# agent = a.QLearner(params)
+# agent = a.SARSALearner(params)
+agent = a.QLearner(params)
 
 # agent = load_agent("saved_agents/agent: 2024-03-11 19:10:22.pkl") # Load agent from file
 training_episodes = 2000
