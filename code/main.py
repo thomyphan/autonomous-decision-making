@@ -22,7 +22,7 @@ def episode(env, agent, discount_factor = 0.99, nr_episode=0, evaluation_mode=Fa
     time_step = 0
     if evaluation_mode:
         agent.epsilon = 0
-        # agent.exploration_constant = 1
+        agent.exploration_constant = 0
     while not done:
         # 1. Select action according to policy
         action = agent.policy(state)
