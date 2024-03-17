@@ -13,8 +13,7 @@ def plot_returns(x,y):
     plot.ylabel("Discounted Return")
     plot.show()
 
-
-def episode(env, agent, discount_factor = 0.99, nr_episode=0, evaluation_mode=False, verbose=True):
+def episode(env, agent, nr_episode=0, evaluation_mode=False, verbose=True):
     state = env.reset()
     discounted_return = 0
     discount_factor = 0.99
@@ -47,33 +46,31 @@ params["gamma"] = 0.99
 params["epsilon_decay"] = 0.0001
 params["alpha"] = 0.1
 params["env"] = env
-params["exploration_constant"] = 5
+params["exploration_constant"] = np.sqrt(2)
 params["epsilon"] = 1
-
-np.random.seed(42)
-random.seed(42)
 
 #agent = a.RandomAgent(params)
 # agent = a.SARSALearner(params)
-agent = a.QLearner(params)
+# agent = a.QLearner(params)
+agent = a.UCBQLearner(params)
 
 # agent = load_agent("saved_agents/agent: 2024-03-11 19:10:22.pkl") # Load agent from file
-training_episodes = 2000
+training_episodes = 200
 evaluation_episodes = 10
 
 # TRAINING
-returns = [episode(env, agent, i, verbose=False) for i in range(training_episodes)]
+returns = [episode(env, agent, nr_episode=i, verbose=True) for i in range(training_episodes)]
 x = range(training_episodes)
 y = returns
-# plot_returns(x,y)
+plot_returns(x,y)
 
 # EVALUATION
-eval_returns = [episode(env, agent, i, verbose=True, evaluation_mode=True) for i in range(evaluation_episodes)]
+eval_returns = [episode(env, agent, nr_episode=i, verbose=True, evaluation_mode=True) for i in range(evaluation_episodes)]
 x_eval = range(evaluation_episodes)
 y_eval = eval_returns
-# plot_returns(x_eval,y_eval)
+plot_returns(x_eval,y_eval)
 
-print(f"Evaluation discounted reward: {np.mean(eval_returns)}")
+print(f"Average evaluation discounted return: {np.mean(eval_returns)}")
 # save_agent(agent)
 
-# env.save_video()
+env.save_video()
