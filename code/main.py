@@ -46,7 +46,7 @@ def episode(env, agent, nr_episode=0, evaluation_mode=False, verbose=True):
         time_step += 1
     if verbose: print(nr_episode, ":", discounted_return, "steps: ", time_step)
     return discounted_return
-
+  
 def train(env, agent, episodes):
     returns = [episode(env, agent, nr_episode=i, verbose=True) for i in range(episodes)]
     return returns
@@ -92,5 +92,6 @@ eval_returns = evaluate(env, agent, runs=no_runs, episodes=evaluation_episodes)
 plot_eval_returns(x=range(evaluation_episodes), y=eval_returns)
 
 print(f"Average evaluation discounted return: {np.mean(eval_returns)}")
+
 
 env.save_video()
