@@ -2,10 +2,6 @@
 
 ## Setup
 
-The code requires [Anaconda](https://www.anaconda.com/download).
-
-Please create a virtual environment before running the code (see documentation for [Visual Code](https://code.visualstudio.com/docs/python/environments))
-
 To install all dependencies run the following commands in a terminal:
 ```
 cd code
